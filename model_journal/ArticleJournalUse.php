@@ -40,6 +40,8 @@
 class ArticleJournalUse extends CActiveRecord
 {
 	public $defaultColumns = array();
+	public $title_i;
+	public $description_i;
 
 	// Variable Search	
 	public $creation_search;
@@ -72,12 +74,18 @@ class ArticleJournalUse extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, desc, creation_date, creation_id, modified_date, modified_id', 'required'),
+			array('
+				title_i, description_i', 'required'),
 			array('publish, name, desc', 'numerical', 'integerOnly'=>true),
 			array('creation_id, modified_id', 'length', 'max'=>11),
+			array('
+				title_i', 'length', 'max'=>32),
+			array('
+				description_i', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('use_id, publish, name, desc, creation_date, creation_id, modified_date, modified_id, creation_search, modified_search', 'safe', 'on'=>'search'),
+			array('use_id, publish, name, desc, creation_date, creation_id, modified_date, modified_id, 
+				title_i, description_i, creation_search, modified_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -89,9 +97,11 @@ class ArticleJournalUse extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'article_journals' => array(self::HAS_MANY, 'ArticleJournals', 'use_id'),
+			'title' => array(self::BELONGS_TO, 'OmmuSystemPhrase', 'name'),
+			'description' => array(self::BELONGS_TO, 'OmmuSystemPhrase', 'desc'),
 			'creation' => array(self::BELONGS_TO, 'Users', 'creation_id'),
 			'modified' => array(self::BELONGS_TO, 'Users', 'modified_id'),
+			'journals' => array(self::HAS_MANY, 'ArticleJournals', 'use_id'),
 		);
 	}
 
@@ -109,6 +119,8 @@ class ArticleJournalUse extends CActiveRecord
 			'creation_id' => Yii::t('attribute', 'Creation'),
 			'modified_date' => Yii::t('attribute', 'Modified Date'),
 			'modified_id' => Yii::t('attribute', 'Modified'),
+			'title_i' => Yii::t('attribute', 'Used'),
+			'description_i' => Yii::t('attribute', 'Description'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
 			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
@@ -133,7 +145,20 @@ class ArticleJournalUse extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		// Custom Search
+		$defaultLang = OmmuLanguages::getDefault('code');
+		if(isset(Yii::app()->session['language']))
+			$language = Yii::app()->session['language'];
+		else 
+			$language = $defaultLang;
 		$criteria->with = array(
+			'title' => array(
+				'alias'=>'title',
+				'select'=>$language,
+			),
+			'description' => array(
+				'alias'=>'description',
+				'select'=>$language,
+			),
 			'creation' => array(
 				'alias'=>'creation',
 				'select'=>'displayname'
@@ -169,7 +194,9 @@ class ArticleJournalUse extends CActiveRecord
 			$criteria->compare('t.modified_id',$_GET['modified']);
 		else
 			$criteria->compare('t.modified_id',$this->modified_id);
-
+		
+		$criteria->compare('title.'.$language,strtolower($this->title_i),true);
+		$criteria->compare('description.'.$language,strtolower($this->description_i),true);
 		$criteria->compare('creation.displayname',strtolower($this->creation_search),true);
 		$criteria->compare('modified.displayname',strtolower($this->modified_search),true);
 
@@ -232,28 +259,22 @@ class ArticleJournalUse extends CActiveRecord
 				'header' => 'No',
 				'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1'
 			);
-			if(!isset($_GET['type'])) {
 			$this->defaultColumns[] = array(
-				'name' => 'publish',
-				'value' => 'Utility::getPublish(Yii::app()->controller->createUrl(\'publish\',array(\'id\'=>$data->use_id)), $data->publish)',
-				'htmlOptions' => array(
-					'class' => 'center',
-				),
-				'filter'=>array(
-					1=>Yii::t('phrase', 'Yes'),
-					0=>Yii::t('phrase', 'No'),
-				),
-				'type' => 'raw',
+				'name' => 'title_i',
+				'value' => 'Phrase::trans($data->name)',
 			);
+			/*
+			$this->defaultColumns[] = array(
+				'name' => 'description_i',
+				'value' => 'Phrase::trans($data->desc)',
+			);
+			*/
+			if(!isset($_GET['creation'])) {
+				$this->defaultColumns[] = array(
+					'name' => 'creation_search',
+					'value' => '$data->creation->displayname',
+				);
 			}
-			$this->defaultColumns[] = array(
-				'name' => 'name',
-				'value' => '$data->name',
-			);
-			$this->defaultColumns[] = array(
-				'name' => 'desc',
-				'value' => '$data->desc',
-			);
 			$this->defaultColumns[] = array(
 				'name' => 'creation_date',
 				'value' => 'Utility::dateFormat($data->creation_date)',
@@ -280,43 +301,19 @@ class ArticleJournalUse extends CActiveRecord
 					),
 				), true),
 			);
-			if(!isset($_GET['creation'])) {
-			$this->defaultColumns[] = array(
-				'name' => 'creation_search',
-				'value' => '$data->creation->displayname',
-			);
-			}
-			$this->defaultColumns[] = array(
-				'name' => 'modified_date',
-				'value' => 'Utility::dateFormat($data->modified_date)',
-				'htmlOptions' => array(
-					'class' => 'center',
-				),
-				'filter' => Yii::app()->controller->widget('application.components.system.CJuiDatePicker', array(
-					'model'=>$this,
-					'attribute'=>'modified_date',
-					'language' => 'en',
-					'i18nScriptFile' => 'jquery-ui-i18n.min.js',
-					//'mode'=>'datetime',
+			if(!isset($_GET['type'])) {
+				$this->defaultColumns[] = array(
+					'name' => 'publish',
+					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl(\'publish\',array(\'id\'=>$data->use_id)), $data->publish)',
 					'htmlOptions' => array(
-						'id' => 'modified_date_filter',
+						'class' => 'center',
 					),
-					'options'=>array(
-						'showOn' => 'focus',
-						'dateFormat' => 'dd-mm-yy',
-						'showOtherMonths' => true,
-						'selectOtherMonths' => true,
-						'changeMonth' => true,
-						'changeYear' => true,
-						'showButtonPanel' => true,
+					'filter'=>array(
+						1=>Yii::t('phrase', 'Yes'),
+						0=>Yii::t('phrase', 'No'),
 					),
-				), true),
-			);
-			if(!isset($_GET['modified'])) {
-			$this->defaultColumns[] = array(
-				'name' => 'modified_search',
-				'value' => '$data->modified->displayname',
-			);
+					'type' => 'raw',
+				);
 			}
 		}
 		parent::afterConstruct();
@@ -352,56 +349,44 @@ class ArticleJournalUse extends CActiveRecord
 		}
 		return true;
 	}
-
-	/**
-	 * after validate attributes
-	 */
-	protected function afterValidate()
-	{
-		parent::afterValidate();
-		// Create action
-		
-		return true;
-	}
 	
 	/**
 	 * before save attributes
 	 */
 	protected function beforeSave() 
 	{
+		$currentModule = strtolower(Yii::app()->controller->module->id.'/'.Yii::app()->controller->id);
+		$location = Utility::getUrlTitle($currentModule);
+		
 		if(parent::beforeSave()) {
-			// Create action
-		}
-		return true;	
-	}
-	
-	/**
-	 * After save attributes
-	 */
-	protected function afterSave() 
-	{
-		parent::afterSave();
-		// Create action
-	}
-
-	/**
-	 * Before delete attributes
-	 */
-	protected function beforeDelete() 
-	{
-		if(parent::beforeDelete()) {
-			// Create action
+			if($this->isNewRecord || (!$this->isNewRecord && $this->name == 0)) {
+				$title=new OmmuSystemPhrase;
+				$title->location = $location.'_title';
+				$title->en_us = $this->title_i;
+				if($title->save())
+					$this->name = $title->phrase_id;
+				
+			} else {
+				$title = OmmuSystemPhrase::model()->findByPk($this->name);
+				$title->en_us = $this->title_i;
+				$title->save();
+			}
+			
+			if($this->isNewRecord || (!$this->isNewRecord && $this->desc == 0)) {
+				$desc=new OmmuSystemPhrase;
+				$desc->location = $location.'_description';
+				$desc->en_us = $this->description_i;
+				if($desc->save())
+					$this->desc = $desc->phrase_id;
+				
+			} else {
+				$desc = OmmuSystemPhrase::model()->findByPk($this->desc);
+				$desc->en_us = $this->description_i;
+				$desc->save();
+				
+			}
 		}
 		return true;
-	}
-
-	/**
-	 * After delete attributes
-	 */
-	protected function afterDelete() 
-	{
-		parent::afterDelete();
-		// Create action
 	}
 
 }
