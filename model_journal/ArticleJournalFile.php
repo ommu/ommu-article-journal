@@ -241,7 +241,7 @@ class ArticleJournalFile extends CActiveRecord
 			if(!isset($_GET['type'])) {
 			$this->defaultColumns[] = array(
 				'name' => 'publish',
-				'value' => 'Utility::getPublish(Yii::app()->controller->createUrl(\'publish\',array(\'id\'=>$data->file_id)), $data->publish)',
+				'value' => 'Utility::getPublish(Yii::app()->controller->createUrl(\'publish\',array(\'id\'=>$data->file_id,\'plugin\'=>\'journal\')), $data->publish)',
 				'htmlOptions' => array(
 					'class' => 'center',
 				),

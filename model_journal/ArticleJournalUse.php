@@ -304,7 +304,7 @@ class ArticleJournalUse extends CActiveRecord
 			if(!isset($_GET['type'])) {
 				$this->defaultColumns[] = array(
 					'name' => 'publish',
-					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl(\'publish\',array(\'id\'=>$data->use_id)), $data->publish)',
+					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl(\'publish\',array(\'id\'=>$data->use_id,\'plugin\'=>\'journal\')), $data->publish)',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
