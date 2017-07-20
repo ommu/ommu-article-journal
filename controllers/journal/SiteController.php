@@ -235,7 +235,7 @@ class SiteController extends Controller
 					if($model->save()) {
 						echo CJSON::encode(array(
 							'type' => 5,
-							'get' => Yii::app()->controller->createUrl('manage'),
+							'get' => Yii::app()->controller->createUrl('manage', array('plugin'=>'journal')),
 							'id' => 'partial-article-journals',
 							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Article Journals success created.').'</strong></div>',
 						));
@@ -257,7 +257,7 @@ class SiteController extends Controller
 		}
 		
 		$this->dialogDetail = true; 
-		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage'); 
+		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage', array('plugin'=>'journal')); 
 		$this->dialogWidth = 600; 
 
 		$this->pageTitle = Yii::t('phrase', 'Create Article Journals');
@@ -305,7 +305,7 @@ class SiteController extends Controller
 					if($model->save()) {
 						echo CJSON::encode(array(
 							'type' => 5,
-							'get' => Yii::app()->controller->createUrl('manage'),
+							'get' => Yii::app()->controller->createUrl('manage', array('plugin'=>'journal')),
 							'id' => 'partial-article-journals',
 							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Article Journals success updated.').'</strong></div>',
 						));
@@ -327,7 +327,7 @@ class SiteController extends Controller
 		}
 		
 		$this->dialogDetail = true; 
-		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage'); 
+		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage', array('plugin'=>'journal')); 
 		$this->dialogWidth = 600; 
 
 		$this->pageTitle = Yii::t('phrase', 'Update Article Journals');
@@ -390,7 +390,7 @@ class SiteController extends Controller
 			if($model->save()) {
 				echo CJSON::encode(array(
 					'type' => 5,
-					'get' => Yii::app()->controller->createUrl('manage'),
+					'get' => Yii::app()->controller->createUrl('manage', array('plugin'=>'journal')),
 					'id' => 'partial-article-journals',
 					'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Article Journals success deleted.').'</strong></div>',
 				));
@@ -398,7 +398,7 @@ class SiteController extends Controller
 
 		} else {
 			$this->dialogDetail = true;
-			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
+			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage', array('plugin'=>'journal'));
 			$this->dialogWidth = 350;
 
 			$this->pageTitle = Yii::t('phrase', 'Delete Article Journals');
@@ -428,7 +428,7 @@ class SiteController extends Controller
 			if($model->update()) {
 				echo CJSON::encode(array(
 					'type' => 5,
-					'get' => Yii::app()->controller->createUrl('manage'),
+					'get' => Yii::app()->controller->createUrl('manage', array('plugin'=>'journal')),
 					'id' => 'partial-article-journals',
 					'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Article Journals success updated.').'</strong></div>',
 				));
@@ -436,7 +436,7 @@ class SiteController extends Controller
 
 		} else {
 			$this->dialogDetail = true;
-			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
+			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage', array('plugin'=>'journal'));
 			$this->dialogWidth = 350;
 
 			$this->pageTitle = Yii::t('phrase', '$title Article Journals', array('$title'=>$title));

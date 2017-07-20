@@ -235,7 +235,7 @@ class FileController extends Controller
 					if($model->save()) {
 						echo CJSON::encode(array(
 							'type' => 5,
-							'get' => Yii::app()->controller->createUrl('manage'),
+							'get' => Yii::app()->controller->createUrl('manage', array('plugin'=>'journal')),
 							'id' => 'partial-article-journal-file',
 							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Article Journal Files success created.').'</strong></div>',
 						));
@@ -257,7 +257,7 @@ class FileController extends Controller
 		}
 		
 		$this->dialogDetail = true; 
-		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage'); 
+		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage', array('plugin'=>'journal')); 
 		$this->dialogWidth = 600; 
 
 		$this->pageTitle = Yii::t('phrase', 'Create Article Journal Files');
@@ -305,7 +305,7 @@ class FileController extends Controller
 					if($model->save()) {
 						echo CJSON::encode(array(
 							'type' => 5,
-							'get' => Yii::app()->controller->createUrl('manage'),
+							'get' => Yii::app()->controller->createUrl('manage', array('plugin'=>'journal')),
 							'id' => 'partial-article-journal-file',
 							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Article Journal Files success updated.').'</strong></div>',
 						));
@@ -327,7 +327,7 @@ class FileController extends Controller
 		}
 		
 		$this->dialogDetail = true; 
-		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage'); 
+		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage', array('plugin'=>'journal')); 
 		$this->dialogWidth = 600; 
 
 		$this->pageTitle = Yii::t('phrase', 'Update Article Journal Files');
@@ -390,7 +390,7 @@ class FileController extends Controller
 			if($model->save()) {
 				echo CJSON::encode(array(
 					'type' => 5,
-					'get' => Yii::app()->controller->createUrl('manage'),
+					'get' => Yii::app()->controller->createUrl('manage', array('plugin'=>'journal')),
 					'id' => 'partial-article-journal-file',
 					'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Article Journal Files success deleted.').'</strong></div>',
 				));
@@ -398,7 +398,7 @@ class FileController extends Controller
 
 		} else {
 			$this->dialogDetail = true;
-			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
+			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage', array('plugin'=>'journal'));
 			$this->dialogWidth = 350;
 
 			$this->pageTitle = Yii::t('phrase', 'Delete Article Journal Files');
@@ -428,7 +428,7 @@ class FileController extends Controller
 			if($model->update()) {
 				echo CJSON::encode(array(
 					'type' => 5,
-					'get' => Yii::app()->controller->createUrl('manage'),
+					'get' => Yii::app()->controller->createUrl('manage', array('plugin'=>'journal')),
 					'id' => 'partial-article-journal-file',
 					'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Article Journal Files success updated.').'</strong></div>',
 				));
@@ -436,7 +436,7 @@ class FileController extends Controller
 
 		} else {
 			$this->dialogDetail = true;
-			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
+			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage', array('plugin'=>'journal'));
 			$this->dialogWidth = 350;
 
 			$this->pageTitle = Yii::t('phrase', '$title Article Journal Files', array('$title'=>$title));
