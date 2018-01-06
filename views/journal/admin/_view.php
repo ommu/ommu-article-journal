@@ -3,13 +3,12 @@
  * Article Journals (article-journals)
  * @var $this AdminController
  * @var $data ArticleJournals
- * version: 0.0.1
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
  * @copyright Copyright (c) 2017 Ommu Platform (opensource.ommu.co)
  * @created date 20 July 2017, 06:52 WIB
  * @link https://github.com/ommu/plu-article-journal
- * @contact (+62)856-299-4114
  *
  */
 ?>
