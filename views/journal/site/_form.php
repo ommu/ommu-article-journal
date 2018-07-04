@@ -7,7 +7,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2017 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2017 Ommu Platform (www.ommu.co)
  * @created date 20 July 2017, 06:52 WIB
  * @link https://github.com/ommu/plu-article-journal
  *
@@ -59,7 +59,7 @@
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'author_organization'); ?>
 		<div class="desc">
-			<?php echo $form->textField($model,'author_organization',array('size'=>60,'maxlength'=>128)); ?>
+			<?php echo $form->textField($model,'author_organization', array('size'=>60,'maxlength'=>128)); ?>
 			<?php echo $form->error($model,'author_organization'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
@@ -68,7 +68,7 @@
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'journal_title'); ?>
 		<div class="desc">
-			<?php echo $form->textArea($model,'journal_title',array('rows'=>6, 'cols'=>50)); ?>
+			<?php echo $form->textArea($model,'journal_title', array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($model,'journal_title'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
@@ -77,7 +77,7 @@
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'journal_url'); ?>
 		<div class="desc">
-			<?php echo $form->textArea($model,'journal_url',array('rows'=>6, 'cols'=>50)); ?>
+			<?php echo $form->textArea($model,'journal_url', array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($model,'journal_url'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
@@ -95,7 +95,7 @@
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'creation_id'); ?>
 		<div class="desc">
-			<?php echo $form->textField($model,'creation_id',array('size'=>10,'maxlength'=>10)); ?>
+			<?php echo $form->textField($model,'creation_id', array('size'=>10,'maxlength'=>10)); ?>
 			<?php echo $form->error($model,'creation_id'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
@@ -113,7 +113,7 @@
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'modified_id'); ?>
 		<div class="desc">
-			<?php echo $form->textField($model,'modified_id',array('size'=>10,'maxlength'=>10)); ?>
+			<?php echo $form->textField($model,'modified_id', array('size'=>10,'maxlength'=>10)); ?>
 			<?php echo $form->error($model,'modified_id'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
@@ -122,7 +122,7 @@
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'slug'); ?>
 		<div class="desc">
-			<?php echo $form->textArea($model,'slug',array('rows'=>6, 'cols'=>50)); ?>
+			<?php echo $form->textArea($model,'slug', array('rows'=>6, 'cols'=>50)); ?>
 			<?php echo $form->error($model,'slug'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
@@ -140,7 +140,7 @@
 <div class="dialog-content">
 </div>
 <div class="dialog-submit">
-	<?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('phrase', 'Create') : Yii::t('phrase', 'Save') ,array('onclick' => 'setEnableSave()')); ?>
+	<?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('phrase', 'Create') : Yii::t('phrase', 'Save') , array('onclick' => 'setEnableSave()')); ?>
 	<?php echo CHtml::button(Yii::t('phrase', 'Cancel'), array('id'=>'closed')); ?>
 </div>
 <?php $this->endWidget(); ?>

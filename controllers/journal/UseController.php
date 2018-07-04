@@ -21,7 +21,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2017 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2017 Ommu Platform (www.ommu.co)
  * @created date 20 July 2017, 06:52 WIB
  * @link https://github.com/ommu/plu-article-journal
  *
@@ -128,7 +128,7 @@ class UseController extends Controller
 		$this->pageTitle = Yii::t('phrase', 'Article Journal Uses');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
-		$this->render('admin_manage',array(
+		$this->render('admin_manage', array(
 			'model'=>$model,
 			'columns' => $columns,
 		));
@@ -154,7 +154,7 @@ class UseController extends Controller
 				echo $jsonError;
 
 			} else {
-				if(isset($_GET['enablesave']) && $_GET['enablesave'] == 1) {
+				if(Yii::app()->getRequest()->getParam('enablesave') == 1) {
 					if($model->save()) {
 						echo CJSON::encode(array(
 							'type' => 5,
@@ -177,7 +177,7 @@ class UseController extends Controller
 		$this->pageTitle = Yii::t('phrase', 'Create Article Journal Uses');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
-		$this->render('admin_add',array(
+		$this->render('admin_add', array(
 			'model'=>$model,
 		));
 	}
@@ -202,7 +202,7 @@ class UseController extends Controller
 				echo $jsonError;
 
 			} else {
-				if(isset($_GET['enablesave']) && $_GET['enablesave'] == 1) {
+				if(Yii::app()->getRequest()->getParam('enablesave') == 1) {
 					if($model->save()) {
 						echo CJSON::encode(array(
 							'type' => 5,
@@ -225,7 +225,7 @@ class UseController extends Controller
 		$this->pageTitle = Yii::t('phrase', 'Update Article Journal Uses');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
-		$this->render('admin_edit',array(
+		$this->render('admin_edit', array(
 			'model'=>$model,
 		));
 	}
@@ -245,7 +245,7 @@ class UseController extends Controller
 		$this->pageTitle = Yii::t('phrase', 'View Article Journal Uses');
 		$this->pageDescription = '';
 		$this->pageMeta = $setting->meta_keyword;
-		$this->render('admin_view',array(
+		$this->render('admin_view', array(
 			'model'=>$model,
 		));
 	}	
@@ -257,7 +257,7 @@ class UseController extends Controller
 	public function actionRunAction() {
 		$id       = $_POST['trash_id'];
 		$criteria = null;
-		$actions  = $_GET['action'];
+		$actions  = Yii::app()->getRequest()->getParam('action');
 
 		if(count($id) > 0) {
 			$criteria = new CDbCriteria;
@@ -281,7 +281,7 @@ class UseController extends Controller
 		}
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax'])) {
+		if(!Yii::app()->getRequest()->getParam('ajax')) {
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('manage'));
 		}
 	}
@@ -354,7 +354,7 @@ class UseController extends Controller
 			$this->pageTitle = Yii::t('phrase', '$title Article Journal Uses', array('$title'=>$title));
 			$this->pageDescription = '';
 			$this->pageMeta = '';
-			$this->render('admin_publish',array(
+			$this->render('admin_publish', array(
 				'title'=>$title,
 				'model'=>$model,
 			));

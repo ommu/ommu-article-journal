@@ -15,7 +15,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2017 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2017 Ommu Platform (www.ommu.co)
  * @created date 20 July 2017, 06:52 WIB
  * @link https://github.com/ommu/plu-article-journal
  *
@@ -111,7 +111,7 @@ class FormController extends Controller
 		$this->pageTitle = Yii::t('phrase', 'Form Request Artikel Luar Negeri');
 		$this->pageDescription = isset($_GET['email']) ? (isset($_GET['name']) ? Yii::t('phrase', 'Hi <strong>$1 ($2)</strong>, terimakasih telah menggunakan form request artikel luar negeri.', array('$1'=>$_GET['name'], '$2'=>$_GET['email'])) : Yii::t('phrase', 'Hi <strong>$1</strong>, terimakasih menggunakan form request artikel luar negeri.', array('$1'=>$_GET['email']))) : '';
 		$this->pageMeta = '';
-		$this->render('front_request',array(
+		$this->render('front_request', array(
 			'model'=>$model,
 		));
 	}

@@ -7,14 +7,14 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2017 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2017 Ommu Platform (www.ommu.co)
  * @created date 20 July 2017, 06:52 WIB
  * @link https://github.com/ommu/plu-article-journal
  *
  */
 ?>
 
-<?php if(!isset($_GET['email'])) {
+<?php if(!Yii::app()->getRequest()->getParam('email')) {
 $form=$this->beginWidget('application.libraries.core.components.system.OActiveForm', array(
 	'id'=>'article-journals-form',
 	'enableAjaxValidation'=>true,
@@ -32,7 +32,7 @@ $form=$this->beginWidget('application.libraries.core.components.system.OActiveFo
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'user_displayname'); ?>
 		<div class="desc">
-			<?php echo $form->textField($model,'user_displayname',array('maxlength'=>32, 'class'=>'span-6')); ?>
+			<?php echo $form->textField($model,'user_displayname', array('maxlength'=>32, 'class'=>'span-6')); ?>
 			<?php echo $form->error($model,'user_displayname'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
@@ -41,7 +41,7 @@ $form=$this->beginWidget('application.libraries.core.components.system.OActiveFo
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'user_email'); ?>
 		<div class="desc">
-			<?php echo $form->textField($model,'user_email',array('maxlength'=>32, 'class'=>'span-6')); ?>
+			<?php echo $form->textField($model,'user_email', array('maxlength'=>32, 'class'=>'span-6')); ?>
 			<?php echo $form->error($model,'user_email'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
@@ -50,7 +50,7 @@ $form=$this->beginWidget('application.libraries.core.components.system.OActiveFo
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'user_organization'); ?>
 		<div class="desc">
-			<?php echo $form->textField($model,'user_organization',array('maxlength'=>128, 'class'=>'span-8')); ?>
+			<?php echo $form->textField($model,'user_organization', array('maxlength'=>128, 'class'=>'span-8')); ?>
 			<?php echo $form->error($model,'user_organization'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
@@ -59,7 +59,7 @@ $form=$this->beginWidget('application.libraries.core.components.system.OActiveFo
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'journal_title'); ?>
 		<div class="desc">
-			<?php echo $form->textField($model,'journal_title',array('rows'=>6, 'cols'=>50, 'class'=>'span-10')); ?>
+			<?php echo $form->textField($model,'journal_title', array('rows'=>6, 'cols'=>50, 'class'=>'span-10')); ?>
 			<?php echo $form->error($model,'journal_title'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
@@ -68,7 +68,7 @@ $form=$this->beginWidget('application.libraries.core.components.system.OActiveFo
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'journal_url'); ?>
 		<div class="desc">
-			<?php echo $form->textArea($model,'journal_url',array('rows'=>6, 'cols'=>50, 'class'=>'span-10 smaller')); ?>
+			<?php echo $form->textArea($model,'journal_url', array('rows'=>6, 'cols'=>50, 'class'=>'span-10 smaller')); ?>
 			<?php echo $form->error($model,'journal_url'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>

@@ -4,7 +4,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2017 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2017 Ommu Platform (www.ommu.co)
  * @created date 20 July 2017, 06:50 WIB
  * @link https://github.com/ommu/plu-article-journal
  *
@@ -163,44 +163,44 @@ class ArticleJournals extends CActiveRecord
 			),
 		);
 		
-		$criteria->compare('t.journal_id',strtolower($this->journal_id),true);
-		if(isset($_GET['type']) && $_GET['type'] == 'publish')
-			$criteria->compare('t.publish',1);
-		elseif(isset($_GET['type']) && $_GET['type'] == 'unpublish')
-			$criteria->compare('t.publish',0);
-		elseif(isset($_GET['type']) && $_GET['type'] == 'trash')
-			$criteria->compare('t.publish',2);
+		$criteria->compare('t.journal_id', strtolower($this->journal_id), true);
+		if(Yii::app()->getRequest()->getParam('type') == 'publish')
+			$criteria->compare('t.publish', 1);
+		elseif(Yii::app()->getRequest()->getParam('type') == 'unpublish')
+			$criteria->compare('t.publish', 0);
+		elseif(Yii::app()->getRequest()->getParam('type') == 'trash')
+			$criteria->compare('t.publish', 2);
 		else {
-			$criteria->addInCondition('t.publish',array(0,1));
-			$criteria->compare('t.publish',$this->publish);
+			$criteria->addInCondition('t.publish', array(0,1));
+			$criteria->compare('t.publish', $this->publish);
 		}
-		if(isset($_GET['use']))
-			$criteria->compare('t.use_id',$_GET['use']);
+		if(Yii::app()->getRequest()->getParam('use'))
+			$criteria->compare('t.use_id', Yii::app()->getRequest()->getParam('use'));
 		else
-			$criteria->compare('t.use_id',$this->use_id);
-		$criteria->compare('t.author_id',$this->author_id);
-		$criteria->compare('t.author_organization',strtolower($this->author_organization),true);
-		$criteria->compare('t.journal_title',strtolower($this->journal_title),true);
-		$criteria->compare('t.journal_url',strtolower($this->journal_url),true);
-		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
-		if(isset($_GET['creation']))
-			$criteria->compare('t.creation_id',$_GET['creation']);
+			$criteria->compare('t.use_id', $this->use_id);
+		$criteria->compare('t.author_id', $this->author_id);
+		$criteria->compare('t.author_organization', strtolower($this->author_organization), true);
+		$criteria->compare('t.journal_title', strtolower($this->journal_title), true);
+		$criteria->compare('t.journal_url', strtolower($this->journal_url), true);
+		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 07:07:12','-0001-11-30 00:00:00')))
+			$criteria->compare('date(t.creation_date)', date('Y-m-d', strtotime($this->creation_date)));
+		if(Yii::app()->getRequest()->getParam('creation'))
+			$criteria->compare('t.creation_id', Yii::app()->getRequest()->getParam('creation'));
 		else
-			$criteria->compare('t.creation_id',$this->creation_id);
-		if($this->modified_date != null && !in_array($this->modified_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.modified_date)',date('Y-m-d', strtotime($this->modified_date)));
-		if(isset($_GET['modified']))
-			$criteria->compare('t.modified_id',$_GET['modified']);
+			$criteria->compare('t.creation_id', $this->creation_id);
+		if($this->modified_date != null && !in_array($this->modified_date, array('0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 07:07:12','-0001-11-30 00:00:00')))
+			$criteria->compare('date(t.modified_date)', date('Y-m-d', strtotime($this->modified_date)));
+		if(Yii::app()->getRequest()->getParam('modified'))
+			$criteria->compare('t.modified_id', Yii::app()->getRequest()->getParam('modified'));
 		else
-			$criteria->compare('t.modified_id',$this->modified_id);
-		$criteria->compare('t.slug',strtolower($this->slug),true);
+			$criteria->compare('t.modified_id', $this->modified_id);
+		$criteria->compare('t.slug', strtolower($this->slug), true);
 
-		$criteria->compare('use.column_name_relation',strtolower($this->use_search),true);
-		$criteria->compare('creation.displayname',strtolower($this->creation_search),true);
-		$criteria->compare('modified.displayname',strtolower($this->modified_search),true);
+		$criteria->compare('use.column_name_relation', strtolower($this->use_search), true);
+		$criteria->compare('creation.displayname', strtolower($this->creation_search), true);
+		$criteria->compare('modified.displayname', strtolower($this->modified_search), true);
 
-		if(!isset($_GET['ArticleJournals_sort']))
+		if(!Yii::app()->getRequest()->getParam('ArticleJournals_sort'))
 			$criteria->order = 't.journal_id DESC';
 
 		return new CActiveDataProvider($this, array(
@@ -263,10 +263,10 @@ class ArticleJournals extends CActiveRecord
 				'header' => 'No',
 				'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1'
 			);
-			if(!isset($_GET['type'])) {
+			if(!Yii::app()->getRequest()->getParam('type')) {
 			$this->defaultColumns[] = array(
 				'name' => 'publish',
-				'value' => 'Utility::getPublish(Yii::app()->controller->createUrl(\'publish\',array(\'id\'=>$data->journal_id,\'plugin\'=>\'journal\')), $data->publish)',
+				'value' => 'Utility::getPublish(Yii::app()->controller->createUrl(\'publish\', array(\'id\'=>$data->journal_id,\'plugin\'=>\'journal\')), $data->publish)',
 				'htmlOptions' => array(
 					'class' => 'center',
 				),
@@ -277,7 +277,7 @@ class ArticleJournals extends CActiveRecord
 				'type' => 'raw',
 			);
 			}
-			if(!isset($_GET['use'])) {
+			if(!Yii::app()->getRequest()->getParam('use')) {
 			$this->defaultColumns[] = array(
 				'name' => 'use_search',
 				'value' => '$data->use->column_name_relation',
@@ -316,7 +316,7 @@ class ArticleJournals extends CActiveRecord
 					),
 					'options'=>array(
 						'showOn' => 'focus',
-						'dateFormat' => 'dd-mm-yy',
+						'dateFormat' => 'yy-mm-dd',
 						'showOtherMonths' => true,
 						'selectOtherMonths' => true,
 						'changeMonth' => true,
@@ -325,7 +325,7 @@ class ArticleJournals extends CActiveRecord
 					),
 				), true),
 			);
-			if(!isset($_GET['creation'])) {
+			if(!Yii::app()->getRequest()->getParam('creation')) {
 			$this->defaultColumns[] = array(
 				'name' => 'creation_search',
 				'value' => '$data->creation->displayname',
@@ -348,7 +348,7 @@ class ArticleJournals extends CActiveRecord
 					),
 					'options'=>array(
 						'showOn' => 'focus',
-						'dateFormat' => 'dd-mm-yy',
+						'dateFormat' => 'yy-mm-dd',
 						'showOtherMonths' => true,
 						'selectOtherMonths' => true,
 						'changeMonth' => true,
@@ -357,7 +357,7 @@ class ArticleJournals extends CActiveRecord
 					),
 				), true),
 			);
-			if(!isset($_GET['modified'])) {
+			if(!Yii::app()->getRequest()->getParam('modified')) {
 			$this->defaultColumns[] = array(
 				'name' => 'modified_search',
 				'value' => '$data->modified->displayname',
@@ -377,7 +377,7 @@ class ArticleJournals extends CActiveRecord
 	public static function getInfo($id, $column=null)
 	{
 		if($column != null) {
-			$model = self::model()->findByPk($id,array(
+			$model = self::model()->findByPk($id, array(
 				'select' => $column,
 			));
 			if(count(explode(',', $column)) == 1)
