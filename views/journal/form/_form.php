@@ -15,7 +15,7 @@
 ?>
 
 <?php if(!Yii::app()->getRequest()->getParam('email')) {
-$form=$this->beginWidget('application.libraries.core.components.system.OActiveForm', array(
+$form=$this->beginWidget('application.libraries.yii-traits.system.OActiveForm', array(
 	'id'=>'article-journals-form',
 	'enableAjaxValidation'=>true,
 	//'htmlOptions' => array('enctype' => 'multipart/form-data')
