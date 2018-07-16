@@ -44,7 +44,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('creation_date')); ?>:</b>
-	<?php echo CHtml::encode($this->dateFormat($data->creation_date, true)); ?>
+	<?php echo CHtml::encode($this->dateFormat($data->creation_date)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('creation_id')); ?>:</b>
@@ -52,7 +52,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('modified_date')); ?>:</b>
-	<?php echo CHtml::encode($this->dateFormat($data->modified_date, true)); ?>
+	<?php echo CHtml::encode($this->dateFormat($data->modified_date)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('modified_id')); ?>:</b>
