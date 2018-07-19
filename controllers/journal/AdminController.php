@@ -174,7 +174,7 @@ class AdminController extends Controller
 	public function actionManage() 
 	{
 		$model=new ArticleJournals('search');
-		$model->unsetAttributes();  // clear any default values
+		$model->unsetAttributes();	// clear any default values
 		if(isset($_GET['ArticleJournals'])) {
 			$model->attributes=$_GET['ArticleJournals'];
 		}

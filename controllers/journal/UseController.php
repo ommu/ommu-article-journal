@@ -110,7 +110,7 @@ class UseController extends Controller
 	public function actionManage() 
 	{
 		$model=new ArticleJournalUse('search');
-		$model->unsetAttributes();  // clear any default values
+		$model->unsetAttributes();	// clear any default values
 		if(isset($_GET['ArticleJournalUse'])) {
 			$model->attributes=$_GET['ArticleJournalUse'];
 		}
