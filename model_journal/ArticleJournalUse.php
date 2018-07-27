@@ -154,20 +154,20 @@ class ArticleJournalUse extends CActiveRecord
 			$language = $defaultLang;
 		$criteria->with = array(
 			'title' => array(
-				'alias'=>'title',
+				'alias' => 'title',
 				'select'=>$language,
 			),
 			'description' => array(
-				'alias'=>'description',
+				'alias' => 'description',
 				'select'=>$language,
 			),
 			'creation' => array(
-				'alias'=>'creation',
-				'select'=>'displayname'
+				'alias' => 'creation',
+				'select' => 'displayname'
 			),
 			'modified' => array(
-				'alias'=>'modified',
-				'select'=>'displayname'
+				'alias' => 'modified',
+				'select' => 'displayname'
 			),
 		);
 		

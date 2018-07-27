@@ -152,16 +152,16 @@ class ArticleJournals extends CActiveRecord
 		// Custom Search
 		$criteria->with = array(
 			'use' => array(
-				'alias'=>'use',
-				'select'=>'column_name_relation'
+				'alias' => 'use',
+				'select' => 'column_name_relation'
 			),
 			'creation' => array(
-				'alias'=>'creation',
-				'select'=>'displayname'
+				'alias' => 'creation',
+				'select' => 'displayname'
 			),
 			'modified' => array(
-				'alias'=>'modified',
-				'select'=>'displayname'
+				'alias' => 'modified',
+				'select' => 'displayname'
 			),
 		);
 		
@@ -318,7 +318,7 @@ class ArticleJournals extends CActiveRecord
 				'htmlOptions' => array(
 					'class' => 'center',
 				),
-				'filter' => $this->filterDatepicker($this, 'modified_date'),
+				'filter'=> $this->filterDatepicker($this, 'modified_date'),
 			);
 			if(!Yii::app()->getRequest()->getParam('modified')) {
 			$this->defaultColumns[] = array(
