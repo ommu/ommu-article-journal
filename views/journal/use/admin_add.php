@@ -15,7 +15,7 @@
 
 	$this->breadcrumbs=array(
 		'Article Journal Uses'=>array('manage'),
-		'Create',
+		Yii::t('phrase', 'Create'),
 	);
 ?>
 

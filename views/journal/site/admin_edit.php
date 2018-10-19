@@ -16,7 +16,7 @@
 	$this->breadcrumbs=array(
 		'Article Journals'=>array('manage'),
 		$model->journal_id=>array('view','id'=>$model->journal_id),
-		'Update',
+		Yii::t('phrase', 'Update'),
 	);
 ?>
 
